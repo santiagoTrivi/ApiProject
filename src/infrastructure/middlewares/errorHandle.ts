@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import MainError, {HttpError} from 'http-errors';
+import { ZodError } from "zod";
 
 export const errorHanddler = (err: Error, req: Request, res: Response, next: NextFunction) => {
 
