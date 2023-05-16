@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { UserUseCase } from "../../core/user/application/UserUseCase";
 import MainError from 'http-errors';
+import { UserInputData } from "../objectValueSchema/userSchema";
 
 
 
@@ -8,7 +9,7 @@ export default class UserControllers{
 
     constructor(private userCase: UserUseCase){};
 
-    public post = async(req: Request, res: Response, next: NextFunction) => {
+    public post = async(req: Request<{}, {}, UserInputData>, res: Response, next: NextFunction) => {
         const {name, email, password} = req.body;
         
         try {

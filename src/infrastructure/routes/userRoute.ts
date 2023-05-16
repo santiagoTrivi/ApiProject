@@ -3,6 +3,8 @@ import MongoUserRepository from "../repositories/mongoUserRepository";
 import PasswordCipher from "../lib/hasher";
 import { UserUseCase } from "../../core/user/application/UserUseCase";
 import UserControllers from "../constrollers/userControllers";
+import { userInputValidation } from "../middlewares/userInputValidation";
+import { UserInputSchema } from "../objectValueSchema/userSchema";
 
 
 
@@ -19,7 +21,7 @@ const router = Router();
 
 
 router
-.post('/signup', userControl.post);
+.post('/signup', userInputValidation(UserInputSchema) ,userControl.post);
 
 
 
