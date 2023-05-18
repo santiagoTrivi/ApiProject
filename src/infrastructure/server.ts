@@ -27,7 +27,10 @@ export default class Server{
     middlewares(){
         this.app.use(express.json());
         this.app.use(cors());
-        this.app.use(morgan('dev'));
+        if(process.env.NODE_ENV === 'development'){
+            this.app.use(morgan('dev'));
+            console.log('morgan is on');
+        }
     }
 
     routes(){
