@@ -2,7 +2,7 @@ import express, { Application } from  'express';
 import cors from 'cors';
 import morgan  from 'morgan';
 import mongoConnect from './database/mongoConnection';
-import userRouter from './routes/userRoute';
+
 import { errorHanddler } from './middlewares/errorHandle';
 
 
@@ -34,7 +34,7 @@ export default class Server{
     }
 
     routes(){
-        this.app.use(userRouter)
+        
 
         
         this.app.use(errorHanddler)

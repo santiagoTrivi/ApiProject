@@ -1,4 +1,7 @@
+import { ObjectId } from "mongoose"
+
 export interface UserEntity{
+    id?: ObjectId
     uuid: string
     name: string
     email: string
@@ -10,6 +13,7 @@ export interface UserEntity{
 };
 
 export interface UserView{
+    id?: ObjectId
     uuid: string
     name: string
     email: string
