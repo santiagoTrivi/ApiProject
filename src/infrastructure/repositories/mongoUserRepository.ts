@@ -1,10 +1,14 @@
-import { UserModel } from "@/models/userModel";
+import { UserModel } from "../models/userModel";
 import { UserEntity } from "core/user/domain/UserEntityInterface";
 import { UserRepository } from "core/user/domain/userRepository";
 
 
 
 export default class MongoUserRepository implements UserRepository{
+    async findOne(input_email: string): Promise<any> {
+        const search = await UserModel.findOne({email: input_email});
+        return search;
+    }
     async createUser(data: UserEntity): Promise<any> {
         const user = await UserModel.create(data);
         return user;

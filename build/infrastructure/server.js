@@ -16,7 +16,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
 const mongoConnection_1 = __importDefault(require("./database/mongoConnection"));
-const userRoute_1 = __importDefault(require("./routes/userRoute"));
+const authRouter_1 = __importDefault(require("../infrastructure/routes/authRouter"));
 const errorHandle_1 = require("./middlewares/errorHandle");
 class Server {
     constructor(port) {
@@ -25,6 +25,7 @@ class Server {
         this.dataBaseConnection();
         this.middlewares();
         this.routes();
+        this.ControlServerMiddlewares();
     }
     dataBaseConnection() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -34,10 +35,15 @@ class Server {
     middlewares() {
         this.app.use(express_1.default.json());
         this.app.use((0, cors_1.default)());
-        this.app.use((0, morgan_1.default)('dev'));
+        if (process.env.NODE_ENV === 'development') {
+            this.app.use((0, morgan_1.default)('dev'));
+            console.log('morgan is on');
+        }
     }
     routes() {
-        this.app.use(userRoute_1.default);
+        this.app.use(authRouter_1.default);
+    }
+    ControlServerMiddlewares() {
         this.app.use(errorHandle_1.errorHanddler);
     }
     listen() {

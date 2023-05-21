@@ -1,7 +1,8 @@
 
 export interface EmailRepository{
 
-    setEmailContent(text: string): void;
+    content: string;
+    reciever: string;
     sendEmail(): Promise<boolean>;
 
 };

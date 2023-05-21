@@ -2,7 +2,7 @@ import express, { Application } from  'express';
 import cors from 'cors';
 import morgan  from 'morgan';
 import mongoConnect from './database/mongoConnection';
-
+import authRouter from '../infrastructure/routes/authRouter';
 import { errorHanddler } from './middlewares/errorHandle';
 
 
@@ -18,6 +18,7 @@ export default class Server{
         this.dataBaseConnection();
         this.middlewares();
         this.routes();
+        this.ControlServerMiddlewares();
     }
 
     async dataBaseConnection(){
@@ -26,7 +27,9 @@ export default class Server{
 
     middlewares(){
         this.app.use(express.json());
+
         this.app.use(cors());
+
         if(process.env.NODE_ENV === 'development'){
             this.app.use(morgan('dev'));
             console.log('morgan is on');
@@ -34,12 +37,12 @@ export default class Server{
     }
 
     routes(){
-        
-
-        
-        this.app.use(errorHanddler)
+        this.app.use(authRouter);
     }
 
+    ControlServerMiddlewares(){
+        this.app.use(errorHanddler)
+    }
     
     
     listen(){
